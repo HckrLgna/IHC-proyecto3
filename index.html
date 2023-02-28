@@ -9,15 +9,25 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <script src="index.js"></script>
-  <script src="horario.json"></script>
 </head>
 
 <body>
   <nav class="navbar head-nav text-dark " data-bs-theme="dark">
-    <div class="container">
-      <h1>
-        <a class="navbar-brand" href="#">INSCRIPCION</a>
-      </h1>
+    <div class="container p-2">
+       
+        <div class="col col-10">
+          <h1>
+            <a class="navbar-brand" href="#">INSCRIPCION</a>
+          </h1>
+        </div>
+        <div class="col col-2 d-flex ml-3">
+          <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="white" class="bi bi-person-circle" viewBox="0 0 16 16">
+            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+          </svg>
+          <p style="color: aliceblue;"> Jose Carlos</p> <br>
+          <p style="color: aliceblue;">  Promedio: 61</p>
+        </div>
     </div>
   </nav>
 
@@ -41,7 +51,7 @@
         <div class="row">
         <script>
           for(var i =0; i<jsonData['semestres'].length ;i++){
-            document.write(`<p>
+            document.write(`<p class="p-2">
                               <a class="btn-semestre " data-bs-toggle="collapse" href="#multiCollapseExample${i}" role="button" aria-expanded="false"
                                 aria-controls="multiCollapseExample${i}">
                                 SEMESTRE ${i+1}
@@ -60,13 +70,13 @@
             document.write(`
                               <div class="accordion" id="accordionExample">
                                 <div class="accordion-item">
-                                  <h2 class="accordion-header" id="heading">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse"
-                                      aria-expanded="true" aria-controls="collapseOne">
+                                  <h2 class="accordion-header" id="heading${i}${j}">
+                                    <button class="accordion-button levantamiento${i}${j}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${i}${j}"
+                                      aria-expanded="true" aria-controls="collapse${i}${j}" id="${i}${j}">
                                       ${jsonData['semestres'][i]['materias'][j]['sigla']} - ${jsonData['semestres'][i]['materias'][j]['nombre']}
                                     </button>
                                   </h2>
-                                  <div id="collapse" class="accordion-collapse collapse show" aria-labelledby="heading"
+                                  <div id="collapse${i}${j}" class="accordion-collapse collapse show" aria-labelledby="heading${i}${j}"
                                     data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
                                       <table class="table table-bordered">
@@ -113,10 +123,12 @@
 
         </script>
         </div>
+        <p>*Materias a <span style="color: #1db963;">inscibir</span>, Materias disponibles para  <span style=" color: #2637CE" >levantamiento</span>, Materias no <span style="color: #a5a6a9;">disponibles</span></p>  
+          <p> </p>
+        <div class="row">
+          
+        </div>
       </div>
-      
-
-
       <div class="container">
         <div class="row p-1 justify-content-end">
           <div class="d-grip gap-2 col-2">
@@ -130,13 +142,11 @@
                   d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
               </svg>
               <span
-                class="position-absolute top-0 start-100 translate-middle badge border border-light rounded-circle bg-danger p-2"><span
-                  class="visually-hidden">mensajes no leídos</span></span>
+                class="position-absolute start-0 translate-middle badge border border-light rounded-circle pb-2 bg-success" id="bg-notificacion"><span
+                  class="visually " id="cantMaterias">0</span></span>
             </button>
           </div>
         </div>
-
-        <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable ">
             <div class="modal-content">
@@ -159,142 +169,143 @@
                     
                     <tr class="700">
                       <th class="hour">7:00 - 8:30</th>
-                      <td class="LU" rowspan="1"></td>
-                      <td class="Ma" rowspan="1"></td>
-                      <td class="MI" rowspan="1"></td>
-                      <td class="JU" rowspan="1"></td>
-                      <td class="VI" rowspan="1"></td>
-                      <td class="SA" rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
                     </tr>
                     <tr class="830">
                       <th class="hour">8:30 - 9:15</th>
-                      <td class="LU" rowspan="1"></td>
-                      <td class="Ma" rowspan="1"></td>
-                      <td class="MI" rowspan="1"></td>
-                      <td class="JU" rowspan="1"></td>
-                      <td class="VI" rowspan="1"></td>
-                      <td class="SA" rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
                     </tr>
                     <tr class="915">
                       <th class="hour">9:15 - 10:00</th>
-                      <td class="LU" rowspan="1"></td>
-                      <td class="Ma" rowspan="1"></td>
-                      <td class="MI" rowspan="1"></td>
-                      <td class="JU" rowspan="1"></td>
-                      <td class="VI" rowspan="1"></td>
-                      <td class="SA" rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
                     </tr>
                     <tr class="100">
                       <th class="hour">10:00 - 11:30</th>
-                      <td class="LU" rowspan="1"></td>
-                      <td class="Ma" rowspan="1"></td>
-                      <td class="MI" rowspan="1"></td>
-                      <td class="JU" rowspan="1"></td>
-                      <td class="VI" rowspan="1"></td>
-                      <td class="SA" rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
                     </tr>
                     <tr class="1130">
                       <th class="hour">11:30 - 13:00</th>
-                      <td class="LU" rowspan="1"></td>
-                      <td class="Ma" rowspan="1"></td>
-                      <td class="MI" rowspan="1"></td>
-                      <td class="JU" rowspan="1"></td>
-                      <td class="VI" rowspan="1"></td>
-                      <td class="SA" rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
                     </tr>
                     <tr class="1300">
                       <th class="hour">13:00 - 13:45</th>
-                      <td class="LU" rowspan="1"></td>
-                      <td class="Ma" rowspan="1"></td>
-                      <td class="MI" rowspan="1"></td>
-                      <td class="JU" rowspan="1"></td>
-                      <td class="VI" rowspan="1"></td>
-                      <td class="SA" rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
                     </tr> 
                     <tr class="1345">
                       <th class="hour">13:45 - 15:15</th>
-                      <td class="LU" rowspan="1"></td>
-                      <td class="Ma" rowspan="1"></td>
-                      <td class="MI" rowspan="1"></td>
-                      <td class="JU" rowspan="1"></td>
-                      <td class="VI" rowspan="1"></td>
-                      <td class="SA" rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
                     </tr>
                     <tr class="1515">
                       <th class="hour">15:15 - 16:45</th>
-                      <td class="LU" rowspan="1"></td>
-                      <td class="Ma" rowspan="1"></td>
-                      <td class="MI" rowspan="1"></td>
-                      <td class="JU" rowspan="1"></td>
-                      <td class="VI" rowspan="1"></td>
-                      <td class="SA" rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
                     </tr>
                     <tr class="1645">
                       <th class="hour">16:45 - 18:15</th>
-                      <td class="LU" rowspan="1"></td>
-                      <td class="Ma" rowspan="1"></td>
-                      <td class="MI" rowspan="1"></td>
-                      <td class="JU" rowspan="1"></td>
-                      <td class="VI" rowspan="1"></td>
-                      <td class="SA" rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
                     </tr>
                     <tr class="1815">
                       <th class="hour">18:15 - 19:00</th>
-                      <td class="LU" rowspan="1"></td>
-                      <td class="Ma" rowspan="1"></td>
-                      <td class="MI" rowspan="1"></td>
-                      <td class="JU" rowspan="1"></td>
-                      <td class="VI" rowspan="1"></td>
-                      <td class="SA" rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
                     </tr>
                     <tr class="1900">
                       <th class="hour">19:00 - 20:30</th>
-                      <td class="LU" rowspan="1"></td>
-                      <td class="Ma" rowspan="1"></td>
-                      <td class="MI" rowspan="1"></td>
-                      <td class="JU" rowspan="1"></td>
-                      <td class="VI" rowspan="1"></td>
-                      <td class="SA" rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
                     </tr>
                     <tr class="2030">
                       <th class="hour">20:30 - 21:15</th>
-                      <td class="LU" rowspan="1"></td>
-                      <td class="Ma" rowspan="1"></td>
-                      <td class="MI" rowspan="1"></td>
-                      <td class="JU" rowspan="1"></td>
-                      <td class="VI" rowspan="1"></td>
-                      <td class="SA" rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
                     </tr>
                     <tr class="2115">
                       <th class="hour">21:15 - 22:45</th>
-                      <td class="LU" rowspan="1"></td>
-                      <td class="Ma" rowspan="1"></td>
-                      <td class="MI" rowspan="1"></td>
-                      <td class="JU" rowspan="1"></td>
-                      <td class="VI" rowspan="1"></td>
-                      <td class="SA" rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
+                      <td   rowspan="1"></td>
                     </tr>
                    
                   </tbody>
                 </table>
               </div>
+              <div class="modal-footer">
+                <div class="row p-3">
+                  <p id="collition"></p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-
       </div>
-
       <div class="row p-5">
         <div class="d-grid gap-2 col-2 mx-auto">
-          <button class="btn btn-confirm" type="button">Confirmar inscripcion</button>
+          <button class="btn btn-confirm" type="button" id="guardar">Confirmar inscripcion</button>
           <button class="btn btn-danger" type="button">VOLVER</button>
         </div>
       </div>
-
     </div>
   </body>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-  
 </body>
 
 </html>

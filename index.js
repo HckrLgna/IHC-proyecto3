@@ -148,7 +148,14 @@ const horario = `
                 
                 }
             ]
+        },
+        {
+            "materias": []
+        },
+        {
+            "materias": []
         }
+        
     ]
 }
 `
@@ -166,37 +173,97 @@ window.onload = function(){
         let materia;
         let grupo;
         let cantMaterias=0;
+        let contenedor = document.getElementById('tabHorario');
+        var notificacion = document.getElementById('cantMaterias');
+        let bg_notificacion = document.getElementById('bg-notificacion');
+        let parrafoCollition = document.getElementById('collition');
+        let materiasCollition = "";
+        let btn_guardar = document.getElementById('guardar');
+        let check; 
+        limpiar();
         document.getElementById('submit').onclick = function() {
+            limpiar();
         var radios = document.getElementsByName("flexRadioDefault");
         
         for (var radio of radios)
         {
+            if (radio.id == "110" || radio.id == "111"){
+                radio.setAttribute('disabled','disabled') ;
+            }
             if (radio.checked) {
                 cantMaterias++;
-                console.log(radio.id);
+                check=false;
+                
                 for(var d=0; d< jsonData['semestres'][radio.id[0]]['materias'][radio.id[1]]['grupos'][radio.id[2]]['cargahoraria']['dias'].length; d++){
                     
                     fila = jsonData['semestres'][radio.id[0]]['materias'][radio.id[1]]['grupos'][radio.id[2]]['codeyIni'][d];
                     segFila = jsonData['semestres'][radio.id[0]]['materias'][radio.id[1]]['grupos'][radio.id[2]]['codeyFin'][d];
                     columna = jsonData['semestres'][radio.id[0]]['materias'][radio.id[1]]['grupos'][radio.id[2]]['codex'][d];
                     
-                    console.log(columna);
+                    
                     materia = jsonData['semestres'][radio.id[0]]['materias'][radio.id[1]]['nombre'];
                     
                     grupo = jsonData['semestres'][radio.id[0]]['materias'][radio.id[1]]['grupos'][radio.id[2]]['grupo'] ;
-                    console.log(cantMaterias);
-                    let contenedor = document.getElementById('tabHorario').rows[fila].cells;
-                    contenedor[columna].innerHTML = materia +"<br> Grupo: "+ grupo;
-                    contenedor[columna].classList.toggle("selected"+cantMaterias);
-                    if(segFila > fila){
-                        let contenedor = document.getElementById('tabHorario').rows[segFila].cells;
-                        contenedor[columna].innerHTML = materia +"<br> Grupo: "+ grupo ;
+                    
+                    contenedor = document.getElementById('tabHorario').rows[fila].cells;
+                    if (contenedor[columna].innerHTML == ""){
+                        
+                        contenedor[columna].innerHTML = materia +"<br> Grupo: "+ grupo;
                         contenedor[columna].classList.toggle("selected"+cantMaterias);
-                    } 
+                        
+                        if(segFila > fila){
+                            
+                            contenedor = document.getElementById('tabHorario').rows[segFila].cells;
+                            contenedor[columna].innerHTML = materia +"<br> Grupo: "+ grupo ;
+                            contenedor[columna].classList.toggle("selected"+cantMaterias);
+                        } 
+                    }else{
+                        check=true;
+                        contenedor[columna].innerHTML =  "";
+                        contenedor[columna].innerHTML = materia +"<br> Grupo: "+ grupo;
+                        contenedor[columna].classList.toggle("collitions");
+                        materiasCollition = materia + grupo;
+                        if(segFila > fila){
+                            contenedor = document.getElementById('tabHorario').rows[segFila].cells;
+                            materiasCollition += contenedor[columna].innerHTML ;
+                            contenedor[columna].classList.toggle("collitions");
+                        } 
+                    }
+                    
                 }
+                if(check) {
+                    parrafoCollition.innerHTML = "<strong>Las siguientes materias chocan horarios :</strong>" + materiasCollition;
+                    notificacion.innerHTML= "X"
+                    bg_notificacion.classList.toggle("bg-danger");
+                    btn_guardar.setAttribute('disabled','disabled')
+                }else{
+                    parrafoCollition.innerHTML = "<strong>Sin problemas de collision</strong>";
+                    notificacion.innerHTML= cantMaterias;
+                    bg_notificacion.classList.remove("bg-danger");
+                    btn_guardar.setAttribute('enable','enable')
+                    btn_guardar.removeAttribute('disabled','disable')
+                }
+                 
+            } 
+            
+        }
+        cantMaterias=0;
+    }
+
+    function getValue(radio) {
+        alert(radio.value);
+    }
+    function limpiar(){
+        for(var i=1; i<=13;i++){
+            let contenedor = document.getElementById('tabHorario').rows[i].cells;
+            for (var j=1; j<=6; j++){
+                contenedor[j].innerHTML = "";
+                contenedor[j].classList.remove("collitions");
+                contenedor[j].classList.remove("selected"+j);
             }
         }
     }
+
     
 };
 

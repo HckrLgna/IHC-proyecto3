@@ -48,6 +48,66 @@
     color: red;
     /* font-weight: bold; */
 }
-td .selected1{
+td.selected1{
     background-color: #1D81B9;
+}
+td.selected2{
+  background-color: #1db963;
+}
+td.selected3{
+  background-color: #a69407;
+}
+td.selected4{
+  background-color: #da6217;
+}
+td.selected5{
+  background-color: #b11db9;
+}
+td.selected6{
+  background-color: #1d92b9;
+}
+td.selected7{
+  background-color: #b91d1d;
+}
+td.collitions{
+  background-color: #ffff;
+  color: #b91d1d;
+}
+td.selected{
+  background-color: #ffff;
+  color: #000000;
+}
+.collition{
+  background-color: #cd2d2a;
+  color: #ffff;
+  font-size: x-large;
+  font-weight: 800;
+  border: none;
+  width: 50px;
+  height: 50px;
+}
+.notificacion{
+  background-color: #1db963;
+  color: #ffff;
+  font-size: x-large;
+  font-weight: 600;
+  border: none;
+  width: 50px;
+  height: 50px;
+}
+.levantamiento00{
+  color: #1db963;
+}
+.levantamiento01{
+  color: #1db963;
+}
+.levantamiento10{
+  color: #2637CE;
+  border: #2637CE;
+}
+.levantamiento11{
+  color: #a5a6a9;
+}
+.semestre3{
+  color: #a5a6a9;
 }
