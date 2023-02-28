@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema de inscripciones XXX-XXX</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="index.js"></script>
+  <script src="horario.json"></script>
+</head>
+
+<body>
+  <nav class="navbar head-nav text-dark " data-bs-theme="dark">
+    <div class="container">
+      <h1>
+        <a class="navbar-brand" href="#">INSCRIPCION</a>
+      </h1>
+    </div>
+  </nav>
+
+  <body>
+    <div class="container">
+      <div class="row p-3">
+        <div class="col col-3">
+          <h4>Nombre</h4>
+        </div>
+        <div class="col col-1">
+          <h4>Grupo</h4>
+        </div>
+        <div class="col col-6">
+          <h4>Horario</h4>
+        </div>
+        <div class="col col-2">
+          <h4>Cupos</h4>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row">
+        <script>
+          for(var i =0; i<jsonData['semestres'].length ;i++){
+            document.write(`<p>
+                              <a class="btn-semestre " data-bs-toggle="collapse" href="#multiCollapseExample${i}" role="button" aria-expanded="false"
+                                aria-controls="multiCollapseExample${i}">
+                                SEMESTRE ${i+1}
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                  class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                                  <path
+                                    d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                                </svg>
+                              </a>
+                            </p>
+                          `)
+            document.write(`
+                          <div class="collapse multi-collapse" id="multiCollapseExample${i}">
+                          <div class="card card-body">`)
+                           for(var j=0; j<jsonData['semestres'][i]['materias'].length ; j++){
+            document.write(`
+                              <div class="accordion" id="accordionExample">
+                                <div class="accordion-item">
+                                  <h2 class="accordion-header" id="heading">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse"
+                                      aria-expanded="true" aria-controls="collapseOne">
+                                      ${jsonData['semestres'][i]['materias'][j]['sigla']} - ${jsonData['semestres'][i]['materias'][j]['nombre']}
+                                    </button>
+                                  </h2>
+                                  <div id="collapse" class="accordion-collapse collapse show" aria-labelledby="heading"
+                                    data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                      <table class="table table-bordered">
+                                        <tbody class="bg-table">
+                                          <form action="">
+                            `)
+                                            for(var x = 0; x< jsonData['semestres'][i]['materias'][j]['grupos'].length; x++){
+            document.write(`
+                                            <tr>
+                                              <td>${jsonData['semestres'][i]['materias'][j]['grupos'][x]['docente']}</td>
+                                              <td>${jsonData['semestres'][i]['materias'][j]['grupos'][x]['grupo']}</td>
+                                              <td>
+            `)
+                                            for(var z =0; z<jsonData['semestres'][i]['materias'][j]['grupos'][x]['cargahoraria']['dias'].length; z++ ){
+            document.write(`
+                                               ${jsonData['semestres'][i]['materias'][j]['grupos'][x]['cargahoraria']['dias'][z]} ${jsonData['semestres'][i]['materias'][j]['grupos'][x]['cargahoraria']['hIni'][z] } - ${jsonData['semestres'][i]['materias'][j]['grupos'][x]['cargahoraria']['hFin'][z]} 
+            `)
+                                            }
+            document.write(`                      
+                                              </td>
+                                              <td>${jsonData['semestres'][i]['materias'][j]['grupos'][x]['cupos']}</td>
+                                              <td>
+                                                <div class="form-check">
+                                                  <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                                    id="${i}${j}${x}">
+                                                </div>
+                                              </td>
+                                            </tr>
+            `)
+                                            }
+            document.write(`
+                                          </form>
+                                        </tbody>
+                                      </table>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>  
+            `)
+                           } 
+            document.write(`</div>
+                              </div>`)                
+          }
+
+        </script>
+        </div>
+      </div>
+      
+
+
+      <div class="container">
+        <div class="row p-1 justify-content-end">
+          <div class="d-grip gap-2 col-2">
+            <button type="button" class="btn-calendar position-relative" data-bs-toggle="modal"
+              data-bs-target="#exampleModal" id="submit">
+              <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" fill="white" class="bi bi-calendar3"
+                viewBox="0 0 16 16">
+                <path
+                  d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z" />
+                <path
+                  d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
+              </svg>
+              <span
+                class="position-absolute top-0 start-100 translate-middle badge border border-light rounded-circle bg-danger p-2"><span
+                  class="visually-hidden">mensajes no leídos</span></span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable ">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Horario</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body cuerpo-modal" id="schedule">
+                <table class="table table-bordered" id="tabHorario">
+                  <tbody>
+                    <tr>
+                      <th class="period"></th>
+                      <th class="day LU">Lunes</th>
+                      <th class="day MA">Martes</th>
+                      <th class="day MI">Miércoles</th>
+                      <th class="day JU">Jueves</th>
+                      <th class="day VI">Viernes</th>
+                      <th class="day SA">Sábado</th>
+                    </tr>
+                    
+                    <tr class="700">
+                      <th class="hour">7:00 - 8:30</th>
+                      <td class="LU" rowspan="1"></td>
+                      <td class="Ma" rowspan="1"></td>
+                      <td class="MI" rowspan="1"></td>
+                      <td class="JU" rowspan="1"></td>
+                      <td class="VI" rowspan="1"></td>
+                      <td class="SA" rowspan="1"></td>
+                    </tr>
+                    <tr class="830">
+                      <th class="hour">8:30 - 9:15</th>
+                      <td class="LU" rowspan="1"></td>
+                      <td class="Ma" rowspan="1"></td>
+                      <td class="MI" rowspan="1"></td>
+                      <td class="JU" rowspan="1"></td>
+                      <td class="VI" rowspan="1"></td>
+                      <td class="SA" rowspan="1"></td>
+                    </tr>
+                    <tr class="915">
+                      <th class="hour">9:15 - 10:00</th>
+                      <td class="LU" rowspan="1"></td>
+                      <td class="Ma" rowspan="1"></td>
+                      <td class="MI" rowspan="1"></td>
+                      <td class="JU" rowspan="1"></td>
+                      <td class="VI" rowspan="1"></td>
+                      <td class="SA" rowspan="1"></td>
+                    </tr>
+                    <tr class="100">
+                      <th class="hour">10:00 - 11:30</th>
+                      <td class="LU" rowspan="1"></td>
+                      <td class="Ma" rowspan="1"></td>
+                      <td class="MI" rowspan="1"></td>
+                      <td class="JU" rowspan="1"></td>
+                      <td class="VI" rowspan="1"></td>
+                      <td class="SA" rowspan="1"></td>
+                    </tr>
+                    <tr class="1130">
+                      <th class="hour">11:30 - 13:00</th>
+                      <td class="LU" rowspan="1"></td>
+                      <td class="Ma" rowspan="1"></td>
+                      <td class="MI" rowspan="1"></td>
+                      <td class="JU" rowspan="1"></td>
+                      <td class="VI" rowspan="1"></td>
+                      <td class="SA" rowspan="1"></td>
+                    </tr>
+                    <tr class="1300">
+                      <th class="hour">13:00 - 13:45</th>
+                      <td class="LU" rowspan="1"></td>
+                      <td class="Ma" rowspan="1"></td>
+                      <td class="MI" rowspan="1"></td>
+                      <td class="JU" rowspan="1"></td>
+                      <td class="VI" rowspan="1"></td>
+                      <td class="SA" rowspan="1"></td>
+                    </tr> 
+                    <tr class="1345">
+                      <th class="hour">13:45 - 15:15</th>
+                      <td class="LU" rowspan="1"></td>
+                      <td class="Ma" rowspan="1"></td>
+                      <td class="MI" rowspan="1"></td>
+                      <td class="JU" rowspan="1"></td>
+                      <td class="VI" rowspan="1"></td>
+                      <td class="SA" rowspan="1"></td>
+                    </tr>
+                    <tr class="1515">
+                      <th class="hour">15:15 - 16:45</th>
+                      <td class="LU" rowspan="1"></td>
+                      <td class="Ma" rowspan="1"></td>
+                      <td class="MI" rowspan="1"></td>
+                      <td class="JU" rowspan="1"></td>
+                      <td class="VI" rowspan="1"></td>
+                      <td class="SA" rowspan="1"></td>
+                    </tr>
+                    <tr class="1645">
+                      <th class="hour">16:45 - 18:15</th>
+                      <td class="LU" rowspan="1"></td>
+                      <td class="Ma" rowspan="1"></td>
+                      <td class="MI" rowspan="1"></td>
+                      <td class="JU" rowspan="1"></td>
+                      <td class="VI" rowspan="1"></td>
+                      <td class="SA" rowspan="1"></td>
+                    </tr>
+                    <tr class="1815">
+                      <th class="hour">18:15 - 19:00</th>
+                      <td class="LU" rowspan="1"></td>
+                      <td class="Ma" rowspan="1"></td>
+                      <td class="MI" rowspan="1"></td>
+                      <td class="JU" rowspan="1"></td>
+                      <td class="VI" rowspan="1"></td>
+                      <td class="SA" rowspan="1"></td>
+                    </tr>
+                    <tr class="1900">
+                      <th class="hour">19:00 - 20:30</th>
+                      <td class="LU" rowspan="1"></td>
+                      <td class="Ma" rowspan="1"></td>
+                      <td class="MI" rowspan="1"></td>
+                      <td class="JU" rowspan="1"></td>
+                      <td class="VI" rowspan="1"></td>
+                      <td class="SA" rowspan="1"></td>
+                    </tr>
+                    <tr class="2030">
+                      <th class="hour">20:30 - 21:15</th>
+                      <td class="LU" rowspan="1"></td>
+                      <td class="Ma" rowspan="1"></td>
+                      <td class="MI" rowspan="1"></td>
+                      <td class="JU" rowspan="1"></td>
+                      <td class="VI" rowspan="1"></td>
+                      <td class="SA" rowspan="1"></td>
+                    </tr>
+                    <tr class="2115">
+                      <th class="hour">21:15 - 22:45</th>
+                      <td class="LU" rowspan="1"></td>
+                      <td class="Ma" rowspan="1"></td>
+                      <td class="MI" rowspan="1"></td>
+                      <td class="JU" rowspan="1"></td>
+                      <td class="VI" rowspan="1"></td>
+                      <td class="SA" rowspan="1"></td>
+                    </tr>
+                   
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row p-5">
+        <div class="d-grid gap-2 col-2 mx-auto">
+          <button class="btn btn-confirm" type="button">Confirmar inscripcion</button>
+          <button class="btn btn-danger" type="button">VOLVER</button>
+        </div>
+      </div>
+
+    </div>
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  
+</body>
+
+</html>

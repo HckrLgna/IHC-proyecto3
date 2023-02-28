@@ -1,0 +1,54 @@
+var cargaHoraria = {
+    "semestres": [
+        {
+        "materias": [
+            {
+                "nombre": "Calculo I",
+                "grupo": "SA",
+                "docente": "Avedaño",
+                "cupos": 10,
+                "cargahoraria": {
+                    "dias": ["martes", "jueves"],
+                    "hIni": ["18:15", "18:15"],
+                    "hFin": ["20:30", "20:30"]
+                }
+            },
+            {
+                "nombre": "Fisica I",
+                "grupo": "SA",
+                "docente": "Avedaño",
+                "cupos": 10,
+                "cargahoraria": {
+                    "dias": ["martes", "jueves"],
+                    "hIni": ["18:15", "18:15"],
+                    "hFin": ["20:30", "20:30"]
+                }
+            }
+        ]
+        },
+        {
+            "materias": [
+                {
+                    "nombre": "Calculo II",
+                    "grupo": "SA",
+                    "docente": "Avedaño",
+                    "cupos": 10,
+                    "cargahoraria": {
+                        "dias": ["martes", "jueves"],
+                        "hIni": ["18:15", "18:15"],
+                        "hFin": ["20:30", "20:30"]
+                    }
+                },
+                {
+                    "nombre": "Fisica II",
+                    "Docente": "Avedaño",
+                    "cargahoraria": {
+                        "dias": ["martes", "jueves"],
+                        "hIni": ["18:15", "18:15"],
+                        "hFin": ["20:30", "20:30"]
+                    }
+                }
+            ]
+            }
+    ]
+}

@@ -1,0 +1,53 @@
+.head-nav {
+    background-color: #1D81B9;
+    color: #ffff;
+  }
+
+  .btn-confirm {
+    background-color: #1D81B9;
+    color: #ffff;
+
+  }
+
+  .btn-confirm:hover {
+    background-color: #2db05b;
+    color: #ffff;
+  }
+
+  .btn-calendar {
+    background-color: #1D81B9;
+    border-radius: 100%;
+    border: none;
+    padding: 20px;
+    margin: 20px;
+
+  }
+
+  .cuerpo.modal {
+    height: 950px;
+  }
+
+  .btn-semestre {
+    text-decoration: none;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 550;
+    font-size: 23px;
+
+    color: #000000;
+  }
+
+  .bg-table {
+    background-color: #DCDCDC;
+  }
+  
+ 
+#schedule table tr td.collision {
+    /* background-color: #ffffff; */
+    /* border: 2px solid #ff0000; */
+    color: red;
+    /* font-weight: bold; */
+}
+td .selected1{
+    background-color: #1D81B9;
+}
